@@ -89,4 +89,6 @@ explicit = true
 [tool.uv.workspace]
 members = [
     ".",
+    "modal",
+    "modal-runtime",
 ]

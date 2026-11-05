@@ -1,0 +1,6 @@
+# This build needs only the repository-root dependency manifest.
+**
+!pyproject.toml
+!modal-runtime/
+!modal-runtime/Dockerfile
+!modal-runtime/Dockerfile.dockerignore

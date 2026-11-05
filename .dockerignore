@@ -1,0 +1,6 @@
+.egg-info
+.git
+.github
+.venv
+modal-runtime
+reasoning-from-scratch
