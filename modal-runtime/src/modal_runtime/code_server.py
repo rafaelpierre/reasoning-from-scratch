@@ -9,6 +9,9 @@ import modal
 
 app = modal.App("code-server-a100")
 
+# Resolve the build manifest locally; the deployed module has a different path.
+runtime_project_dir = str(Path(__file__).resolve().parents[2]) if modal.is_local() else "/.uv"
+
 image = (
     modal.Image.debian_slim(python_version="3.13")
     # Install browser-based code-server and launch it explicitly below.
@@ -18,7 +21,14 @@ image = (
         "sh /tmp/install-code-server.sh --method=standalone --prefix=/usr/local",
         "/usr/local/bin/code-server --version",
     )
-    .uv_sync(groups=["remote"])
+    # Use published packages even if uv add recreates a local workspace source.
+    .uv_sync(runtime_project_dir, groups=["remote"], extra_options="--no-sources")
+    .env({"VIRTUAL_ENV": "/.uv/.venv"})
+    .run_commands(
+        '/.uv/.venv/bin/python -c "import torch; print(torch.__version__)"',
+        "/.uv/.venv/bin/python -m ipykernel install --prefix=/usr/local "
+        '--name=modal-remote --display-name="Python (Modal remote / PyTorch)"',
+    )
 )
 
 # Stage outside /workspace, which is covered by the persistent Volume at runtime.

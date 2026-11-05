@@ -2700,6 +2700,7 @@ dependencies = [
 
 [package.dev-dependencies]
 remote = [
+    { name = "ipykernel" },
     { name = "matplotlib", version = "3.10.9", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "matplotlib", version = "3.11.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "nbformat" },
@@ -2716,6 +2717,7 @@ requires-dist = [{ name = "modal", specifier = ">=1.6.3" }]
 
 [package.metadata.requires-dev]
 remote = [
+    { name = "ipykernel", specifier = ">=6.29" },
     { name = "matplotlib", specifier = ">=3.10.9" },
     { name = "nbformat", specifier = ">=5.10.4" },
     { name = "reasoning-from-scratch", editable = "." },
