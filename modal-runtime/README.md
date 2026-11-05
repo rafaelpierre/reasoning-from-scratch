@@ -1,5 +1,18 @@
 # CUDA + VS Code image
 
+For browser-based code-server on Modal, run from `modal-runtime`:
+
+```sh
+uv run modal deploy src/modal_runtime/code_server.py
+```
+
+First set `PASSWORD` (or `HASHED_PASSWORD`) in the Modal secret `custom-secret`.
+The Modal image installs code-server on top of the CUDA image and starts it on
+`0.0.0.0:8080`; open the HTTPS URL printed by the deployment and sign in with
+your password. Projects, editor settings, and extensions are stored in the
+`code-server-workspace` volume under `/workspace`. The first deployment builds
+the additional code-server image layer.
+
 From the **repository root**, using a Lima instance with containerd, nerdctl,
 and BuildKit installed (replace `default` with your instance name):
 
